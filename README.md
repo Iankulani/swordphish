@@ -149,4 +149,5 @@ python3 requirements_check.py
 
 # Star History
 
+[![Star History Chart](https://api.star-history.com/svg?repos=Iankulani/swordphish&type=Date)](https://star-history.com/#Iankulani/swordphish&Date)
   
