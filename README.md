@@ -1,6 +1,6 @@
 # swordphish
 
-<img width="836" height="624" alt="swordphish" src="https://github.com/user-attachments/assets/b9db61e1-e8b7-4d25-95d6-98e722538a80" />
+<img width="936" height="524" alt="swordphish" src="https://github.com/user-attachments/assets/b9db61e1-e8b7-4d25-95d6-98e722538a80" />
 
 [![GitHub stars](https://img.shields.io/github/stars/Iankulani/swordphish?style=for-the-badge&logo=github)](https://github.com/Iankulani/swordphish/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Iankulani/swordphish?style=for-the-badge&logo=github)](https://github.com/Iankulani/swordphish/network)
