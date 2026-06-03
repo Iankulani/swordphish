@@ -12,8 +12,31 @@
 [![Python](https://img.shields.io/badge/python-3.x-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
 
-swordphish
+Swordfish is a powerful cybersecurity tool designed to support security awareness training, authorized security assessments, and cyber defense exercises. The tool enables security professionals, trainers, and organizations to manage and coordinate cybersecurity activities through multiple communication channels, including Telegram, Slack, Discord, iMessage, web applications, and other messaging platforms.
 
+Built to simplify cybersecurity operations, Swordfish allows users to send commands, automate training scenarios, monitor engagement, and collect actionable security metrics from a centralized interface. The tool helps organizations evaluate their security posture by conducting controlled security awareness campaigns, phishing simulations, and social engineering assessments within authorized environments.
+
+Swordfish is designed for use in red team, blue team, and purple team exercises, providing realistic scenarios that help security professionals understand modern attack techniques and improve defensive capabilities. Security teams can use the tool to test employee awareness, measure organizational readiness, and strengthen incident response procedures.
+
+The tool features automation, reporting, campaign management, user tracking, and real-time monitoring capabilities, allowing security teams to efficiently manage large-scale cybersecurity training initiatives. Detailed analytics and reporting functions provide valuable insights that help organizations identify weaknesses and improve security practices.
+
+Swordfish is suitable for cybersecurity consultants, managed security providers, educational institutions, corporate security teams, and professional training organizations. By integrating multiple communication platforms into a single tool, Swordfish streamlines security operations and improves the effectiveness of cybersecurity awareness programs.
+
+Developed with security, flexibility, and scalability in mind, Swordfish supports organizations of all sizes, from small businesses to large enterprises. The tool is intended exclusively for authorized cybersecurity testing, security awareness training, and defensive security activities, helping organizations build stronger security cultures and improve resilience against evolving cyber threats.
+
+# How ti clone the repo
+```bash
+git clone https://github.com/Iankulani/swordphish.git
+cd swordphish
+```
+
+
+# How to run
+
+```bash
+python swordphish.py
+```
+   
 
 
 # Run as Administrator
@@ -125,10 +148,6 @@ python3 requirements_check.py
 * Staging/Production deployment
 
 
-# How ti clone the repo
-```bash
-git clone https://github.com/Iankulani/swordphish.git
-cd swordphish
-```
+
 
   
