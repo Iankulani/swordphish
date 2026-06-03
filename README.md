@@ -13,3 +13,12 @@
 [![Docker](https://img.shields.io/badge/docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
 
 swordphish
+
+
+# How ti clone the repo
+```bash
+git clone https://github.com/Iankulani/swordphish.git
+cd swordphish
+```
+
+  
