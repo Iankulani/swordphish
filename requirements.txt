@@ -1,0 +1,29 @@
+# Core Requirements
+cryptography>=41.0.0
+requests>=2.31.0
+psutil>=5.9.0
+ipaddress>=1.0.23
+paramiko>=3.0.0
+python-whois>=0.8.0
+
+# Discord
+discord.py>=2.3.0
+
+# Telegram
+telethon>=1.34.0
+
+# Slack
+slack-sdk>=3.21.0
+
+# WhatsApp (Selenium)
+selenium>=4.15.0
+webdriver-manager>=4.0.0
+
+# Google Chat
+google-auth>=2.23.0
+google-api-python-client>=2.100.0
+google-auth-oauthlib>=1.0.0
+
+# Optional but recommended
+colorama>=0.4.6
+tqdm>=4.66.0

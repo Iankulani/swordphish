@@ -1,0 +1,91 @@
+# Multi-stage build for SWORDPHISH
+FROM alpine:3.19 as builder
+
+# Install build dependencies
+RUN apk add --no-cache \
+    python3 \
+    py3-pip \
+    gcc \
+    musl-dev \
+    libffi-dev \
+    openssl-dev \
+    rust \
+    cargo \
+    make \
+    cmake \
+    git
+
+# Create virtual environment
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copy requirements first for better caching
+COPY requirements.txt /tmp/requirements.txt
+COPY requirements_minimal.txt /tmp/requirements_minimal.txt
+
+# Install Python packages
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir -r /tmp/requirements_minimal.txt && \
+    pip3 install --no-cache-dir --prefer-binary \
+    discord.py \
+    telethon \
+    slack-sdk \
+    selenium \
+    google-api-python-client
+
+# Final stage
+FROM alpine:3.19
+
+# Install runtime dependencies
+RUN apk add --no-cache \
+    python3 \
+    chromium \
+    chromium-chromedriver \
+    openssh-client \
+    whois \
+    traceroute \
+    iptables \
+    bash \
+    curl \
+    jq \
+    procps \
+    tzdata
+
+# Create non-root user
+RUN addgroup -g 1000 swordphish && \
+    adduser -D -u 1000 -G swordphish swordphish
+
+# Copy virtual environment from builder
+COPY --from=builder /opt/venv /opt/venv
+
+# Copy application files
+COPY swordphish.py /app/swordphish.py
+COPY *.py /app/
+COPY *.sh /app/
+RUN chmod +x /app/*.sh 2>/dev/null || true
+
+# Create data directories
+RUN mkdir -p /app/.swordphish /app/swordphish_reports && \
+    chown -R swordphish:swordphish /app
+
+# Set environment variables
+ENV PATH="/opt/venv/bin:$PATH"
+ENV PYTHONUNBUFFERED=1
+ENV SWORDPHISH_HOME=/app
+
+WORKDIR /app
+
+USER swordphish
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8080/health 2>/dev/null || exit 1
+
+# Expose ports (if any web interface is added)
+EXPOSE 8080
+
+# Entry point
+ENTRYPOINT ["python3", "swordphish.py"]
+
+# Default command (can be overridden)
+CMD ["--interactive"]

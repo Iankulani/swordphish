@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  swordphish:
+    build: .
+    container_name: swordphish
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/app/.swordphish
+      - ./reports:/app/swordphish_reports
+      - ./config:/app/config
+    environment:
+      - TZ=UTC
+      - SWORDPHISH_CONFIG=/app/config/config.json
+    networks:
+      - swordphish_net
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    # For production, uncomment below and remove interactive mode
+    # command: --daemon
+
+  # Optional: Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: swordphish_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - swordphish_net
+
+  # Optional: PostgreSQL for production DB
+  postgres:
+    image: postgres:16-alpine
+    container_name: swordphish_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=swordphish
+      - POSTGRES_PASSWORD=swordphish_pass
+      - POSTGRES_DB=swordphish
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - swordphish_net
+    profiles:
+      - production
+
+networks:
+  swordphish_net:
+    driver: bridge
+
+volumes:
+  redis_data:
+  postgres_data:

@@ -1,0 +1,111 @@
+# SWORDPHISH Makefile
+
+.PHONY: help install install-full install-minimal install-docker clean test lint run docker-build docker-up docker-down
+
+# Variables
+PYTHON = python3
+VENV = venv
+VENV_BIN = $(VENV)/bin
+PIP = $(VENV_BIN)/pip
+PYTHON_VENV = $(VENV_BIN)/python
+
+help:
+	@echo "SWORDPHISH Makefile Commands:"
+	@echo ""
+	@echo "  make install          - Install with virtual environment (full)"
+	@echo "  make install-full     - Install all dependencies"
+	@echo "  make install-minimal  - Install minimal dependencies"
+	@echo "  make install-docker   - Install using Docker"
+	@echo "  make clean           - Clean installation"
+	@echo "  make test            - Run tests"
+	@echo "  make lint            - Run linters"
+	@echo "  make run             - Run SWORDPHISH"
+	@echo "  make docker-build    - Build Docker image"
+	@echo "  make docker-up       - Start Docker containers"
+	@echo "  make docker-down     - Stop Docker containers"
+	@echo "  make check           - Check requirements"
+
+$(VENV):
+	$(PYTHON) -m venv $(VENV)
+	$(PIP) install --upgrade pip setuptools wheel
+
+install: $(VENV)
+	$(PIP) install -r requirements.txt
+	@echo "✅ Installation complete. Run 'source $(VENV)/bin/activate' to activate."
+
+install-full: $(VENV)
+	$(PIP) install -r requirements.txt
+	$(PIP) install discord.py telethon slack-sdk selenium google-api-python-client
+	@echo "✅ Full installation complete."
+
+install-minimal: $(VENV)
+	$(PIP) install -r requirements_minimal.txt
+	@echo "✅ Minimal installation complete."
+
+install-docker:
+	@echo "Building Docker image..."
+	docker build -t swordphish:latest .
+	@echo "✅ Docker image built."
+
+clean:
+	@echo "Cleaning..."
+	rm -rf $(VENV)
+	rm -rf __pycache__
+	rm -rf .pytest_cache
+	rm -rf .coverage
+	rm -rf htmlcov
+	rm -rf *.egg-info
+	rm -rf .swordphish
+	rm -rf swordphish_reports
+	@echo "✅ Clean complete."
+
+test:
+	$(PYTHON_VENV) -m pytest test_commands.py -v --cov=. --cov-report=html
+	@echo "✅ Tests complete. Report: htmlcov/index.html"
+
+test-quick:
+	$(PYTHON_VENV) test_commands.py
+
+lint:
+	$(PIP) install pylint black mypy bandit
+	$(VENV_BIN)/pylint swordphish.py --exit-zero
+	$(VENV_BIN)/black --check swordphish.py
+	$(VENV_BIN)/mypy swordphish.py --ignore-missing-imports || true
+	$(VENV_BIN)/bandit -r swordphish.py -f json -o bandit_report.json || true
+	@echo "✅ Linting complete."
+
+check:
+	$(PYTHON) requirements_check.py
+
+run: $(VENV)
+	$(PYTHON_VENV) swordphish.py
+
+docker-build:
+	docker build -t swordphish:latest -f Dockerfile .
+
+docker-up:
+	docker-compose up -d
+
+docker-down:
+	docker-compose down
+
+docker-logs:
+	docker-compose logs -f
+
+shell:
+	$(PYTHON_VENV)
+
+security-audit:
+	$(PIP) install safety
+	$(VENV_BIN)/safety check -r requirements.txt
+	$(VENV_BIN)/bandit -r swordphish.py
+
+update-deps:
+	$(PIP) install --upgrade -r requirements.txt
+
+freeze:
+	$(PIP) freeze > requirements-locked.txt
+
+dev-setup: install-full
+	$(PIP) install pytest pytest-cov pylint black mypy bandit safety
+	@echo "✅ Development setup complete."
