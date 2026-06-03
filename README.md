@@ -15,6 +15,116 @@
 swordphish
 
 
+
+# Run as Administrator
+install.bat
+Docker
+bash
+# Build and run with Docker
+```bash
+docker build -t swordphish .
+docker run -it --rm --cap-add=NET_ADMIN swordphish
+```
+# Or use docker-compose
+```bash
+docker-compose up -d
+```
+# 🔧 Configuration
+First run will prompt for platform setup
+
+Configuration saved in .swordphish/config.json
+
+Database stored in .swordphish/swordphish.db
+
+Platform Setup
+
+# Interactive setup
+ ```bash     
+python3 swordphish.py
+```
+> setup
+
+# Or edit config directly
+nano .swordphish/config.json
+# 📝 Usage
+
+# Basic Commands
+# System commands
+```bash
+help                    # Show all commands
+status                  # System status
+system                  # System information
+```
+# Network analysis
+```bash
+analyze 192.168.1.1    # Complete IP analysis
+scan 192.168.1.1       # Port scan
+ping 8.8.8.8          # Ping test
+```
+# Security
+```bash
+block 192.168.1.100    # Block IP
+threats                # View threats
+report                 # Generate report
+```
+# Traffic generation
+```bash
+traffic icmp 8.8.8.8 10   # ICMP flood
+traffic tcp 192.168.1.1 5  # TCP connection test
+```
+# Platform commands (when configured)
+```bash
+!analyze 8.8.8.8      # via Discord
+/scan 192.168.1.1     # via Telegram
+```
+# 🐳 Docker Deployment
+Production Setup
+yaml
+# docker-compose.yml
+version: '3.8'
+services:
+  swordphish:
+    image: swordphish:latest
+    container_name: swordphish
+    restart: always
+    volumes:
+      - ./data:/app/.swordphish
+      - ./reports:/app/swordphish_reports
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+🧪 Testing
+
+# Run all tests
+
+```bash
+make test
+```
+# Quick tests
+```bash
+python3 test_commands.py
+```
+# Check requirements
+```bash
+python3 requirements_check.py
+```
+# 📊 CI/CD Pipeline
+
+# GitLab CI/CD included:
+
+* SAST security scanning
+
+* Dependency scanning
+
+* Secret detection
+
+* Unit & integration tests
+
+* Docker build & push
+
+* Staging/Production deployment
+
+
 # How ti clone the repo
 ```bash
 git clone https://github.com/Iankulani/swordphish.git
