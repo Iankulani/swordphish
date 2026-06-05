@@ -68,7 +68,9 @@ python3 swordphish.py
 > setup
 
 # Or edit config directly
+```bash
 nano .swordphish/config.json
+```
 # 📝 Usage
 
 # Basic Commands
