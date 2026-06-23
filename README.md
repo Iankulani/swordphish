@@ -38,11 +38,13 @@ python swordphish.py
 ```
    
 
-
 # Run as Administrator
+```bash
 install.bat
-Docker
-bash
+```
+
+# Docker
+
 # Build and run with Docker
 ```bash
 docker build -t swordphish .
