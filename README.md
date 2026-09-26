@@ -1,5 +1,8 @@
 # swordphish
 
+<div align="center">
+
+
 <img width="360" height="360" alt="swordphish" src="https://github.com/user-attachments/assets/b9db61e1-e8b7-4d25-95d6-98e722538a80" />
 
 [![GitHub stars](https://img.shields.io/github/stars/Iankulani/swordphish?style=for-the-badge&logo=github)](https://github.com/Iankulani/swordphish/stargazers)
@@ -11,6 +14,8 @@
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows%20%7C%20macOS-blue?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Iankulani/swordphish)
 [![Python](https://img.shields.io/badge/python-3.x-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Docker](https://img.shields.io/badge/docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+
+</div>
 
 Swordfish is a powerful cybersecurity tool designed to support security awareness training, authorized security assessments, and cyber defense exercises. The tool enables security professionals, trainers, and organizations to manage and coordinate cybersecurity activities through multiple communication channels, including Telegram, Slack, Discord, iMessage, web applications, and other messaging platforms.
 
